@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+    python:        
+        image: python:3.8
+        volumes: 
+            - "/Users/soonwookwon/Desktop/3학년 2학기/DBMS/21-fall-dbs/homework3/postgres-starter"       
+        tty: true    
+        stdin_open: true   
+    postgres:
+        image: postgres:12
+        ports:
+            - "54321:5432"
+        environment:
+            POSTGRES_PASSWORD: ${PG_PASSWORD:-1234}
+            POSTGRES_INITDB_ARGS: --encoding=UTF-8
+        volumes:
+            - "/Users/soonwookwon/Desktop/3학년 2학기/DBMS/21-fall-dbs/homework3/postgres-starter/ApplicationDevelopment/home:/home"
+    pgadmin:      
+        image: dpage/pgadmin4:4.23
+        ports:
+            - "8880:80"
+        environment:            
+            PGADMIN_DEFAULT_EMAIL: "${PGADMIN_EMAIL:-admin}"
+            PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_PASSWORD:-1234}"     
